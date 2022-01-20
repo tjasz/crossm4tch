@@ -130,15 +130,37 @@ h1 {
   color: blue;
 }
 
+.enabled {
+  background: #808080;
+  border-color: #ffffff #404040 #404040 #ffffff;
+  cursor: pointer;
+}
+.disabled {
+  background: #e0e0e0;
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.p1claimed {
+  background: white;
+  border-color: white;
+}
+
+.p2claimed {
+  background: black;
+  border-color: black;
+}
+
 #restartButton {
   display: block;
   width: 300px;
   margin: 20px auto;
-  background-color: black;
+  background-color: #808080;
   color: white;
-  border-color: white;
+  border-color: #ffffff #404040 #404040 #ffffff;
   border-width: 5px;
   font-size: 18px;
   font-weight: bold;
   padding: 5px;
+  cursor: pointer;
 }

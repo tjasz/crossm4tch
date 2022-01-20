@@ -121,9 +121,9 @@ GameBoard.prototype.isLegalMove = function(i, j) {
   {
     return false;
   }
-  if (this.isFreshBoard() && this.isEdge(i,j))
+  if (this.isFreshBoard())
   {
-    return true;
+    return this.isEdge(i,j);
   }
   var catInfo = this.categoryAssignments(this.size*i + j);
   return catInfo % this.size === this.lastTileCategoryInfo % this.size ||
