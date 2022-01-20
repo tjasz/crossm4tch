@@ -1,20 +1,27 @@
 function HtmlActuator(grid) {
   this.grid = grid;
-  console.log(grid);
   this.gridCells = document.getElementsByClassName("grid-cell");
   this.lastTileContainer = document.querySelector(".last-tile");
   for (var i = 0; i < this.gridCells.length; i++) {
     var x = Math.floor(i / this.grid.size);
-	var y = i % this.grid.size;
-	this.gridCells[i].act = this;
-	this.gridCells[i].x = x;
-	this.gridCells[i].y = y;
-	this.gridCells[i].addEventListener('click', handleClick);
+    var y = i % this.grid.size;
+    this.gridCells[i].act = this;
+    this.gridCells[i].x = x;
+    this.gridCells[i].y = y;
+    this.gridCells[i].addEventListener('click', tileClick);
   }
+  this.restartButton = document.getElementById("restartButton");
+  this.restartButton.act = this;
+  this.restartButton.addEventListener('click', restart);
 }
 
-function handleClick(evt) {
+function tileClick(evt) {
   evt.target.act.grid.play(evt.target.x, evt.target.y);
+  evt.target.act.actuate();
+}
+
+function restart(evt) {
+  evt.target.act.grid.setup();
   evt.target.act.actuate();
 }
 
