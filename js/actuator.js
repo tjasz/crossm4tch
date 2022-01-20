@@ -61,7 +61,21 @@ HtmlActuator.prototype.refreshEnabledState = function() {
   }
 };
 
+HtmlActuator.prototype.refreshClaims = function() {
+  for (var i = 0; i < this.gridCells.length; i++) {
+    var x = Math.floor(i / this.grid.size);
+	var y = i % this.grid.size;
+	if (this.grid.cellStates[x][y] === CellState.PlayerOne) {
+      this.gridCells[i].classList.add("p1claimed");
+	}
+	else if (this.grid.cellStates[x][y] === CellState.PlayerTwo){
+      this.gridCells[i].classList.add("p2claimed");
+    }
+  }
+};
+
 HtmlActuator.prototype.actuate = function() {
   this.refreshCategoryAssignments();
   this.refreshEnabledState();
+  this.refreshClaims();
 };
