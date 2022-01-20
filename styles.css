@@ -111,6 +111,19 @@ h1 {
   font-weight: bold;
 }
 
+.cat2-0 {
+  color: red;
+}
+.cat2-1 {
+  color: yellow;
+}
+.cat2-2 {
+  color: green;
+}
+.cat2-3 {
+  color: blue;
+}
+
 #restartButton {
   display: block;
   width: 300px;
