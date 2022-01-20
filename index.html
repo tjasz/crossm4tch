@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CROSSM4TCH</title>
+  
+  <link rel="stylesheet" href="styles.css">
+  <!-- TODO shortcut icon -->
+  <!-- TODO apple touch icon -->
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  
+  <!-- TODO OG and twitter sharing metadata -->
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">CROSSM4TCH</h1>
+      <p class="summary">Match tiles by color or number in order to claim a winning sequence.</p>
+	</div>
+	<hr>
+	
+	<div class="last-tile-info">
+	  <div class="last-tile-tag">Last Tile:</div>
+	  <div class="last-tile"></div>
+	</div>
+	<hr>
+    <div class="grid">
+      <div class="grid-row">
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+	    <div class="grid-cell"></div>
+      </div>
+    </div>
+	<div class="game-state-info">
+      <div class="game-state-message"></div>
+      <button id="restartButton">Restart</button>
+	</div>
+	<hr>
+	
+	<div class="howto">
+	  <p><strong><em>To start:</em></strong> tap any tile on the outer ring of the game board to claim it.</p>
+	  <p>Players alternate turns claiming tiles.</p>
+      <p>Only tiles that <strong>match either the color or the numeral</strong> of the previous tile can be claimed.</p>
+	  <p><strong><em>To win:</em></strong> claim either a full <strong>row</strong>, <strong>column</strong>, <strong>diagonal</strong>, or <strong>2x2 square</strong> of tiles.</p>
+	  <p>It is also possible to win by claiming a tile which has <strong>no available matching tiles</strong>.</p>
+	</div>
+	<hr>
+	<div class="credits">
+	  <p>Created by Tyler Jaszkowiak.</p>
+	</div>
+	<hr>
+	<div class="sharing"></div>
+  </div>
+</body>
+</html>
