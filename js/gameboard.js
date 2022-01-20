@@ -125,7 +125,7 @@ GameBoard.prototype.isLegalMove = function(i, j) {
   {
     return this.isEdge(i,j);
   }
-  var catInfo = this.categoryAssignments(this.size*i + j);
+  var catInfo = this.categoryAssignments[this.size*i + j];
   return catInfo % this.size === this.lastTileCategoryInfo % this.size ||
     Math.floor(catInfo / this.size) === Math.floor(this.lastTileCategoryInfo / this.size);
 };
@@ -148,6 +148,20 @@ GameBoard.prototype.unclaimedTiles = function() {
 };
 
 // TODO determine game states
-// TODO play
+
+GameBoard.prototype.play = function(i,j) {
+  if (this.isLegalMove(i,j))
+  {
+    if (this.isPlayerOneTurn()) {
+      this.cellStates[i][j] = CellState.PlayerOne;
+	}
+	else {
+	  this.cellStates[i][j] = CellState.PlayerTwo;
+	}
+	this.claimed++;
+	this.lastTileCategoryInfo = this.categoryAssignments[this.size*i + j];
+	// TODO determine game state
+  }
+};
 
 

@@ -1,26 +1,41 @@
-function HtmlActuator() {
+function HtmlActuator(grid) {
+  this.grid = grid;
+  console.log(grid);
   this.gridCells = document.getElementsByClassName("grid-cell");
   this.lastTileContainer = document.querySelector(".last-tile");
+  for (var i = 0; i < this.gridCells.length; i++) {
+    var x = Math.floor(i / this.grid.size);
+	var y = i % this.grid.size;
+	this.gridCells[i].act = this;
+	this.gridCells[i].x = x;
+	this.gridCells[i].y = y;
+	this.gridCells[i].addEventListener('click', handleClick);
+  }
+}
+
+function handleClick(evt) {
+  evt.target.act.grid.play(evt.target.x, evt.target.y);
+  evt.target.act.actuate();
 }
 
 HtmlActuator.prototype.applyClasses = function (element, classes) {
   element.setAttribute("class", classes.join(" "));
 };
 
-HtmlActuator.prototype.refreshCategoryAssignments = function(grid) {
+HtmlActuator.prototype.refreshCategoryAssignments = function() {
   // refresh category display for all grid cells
   for (var i = 0; i < this.gridCells.length; i++) {
-    var cat1 = Math.floor(grid.categoryAssignments[i] / grid.size);
-    var cat2 = grid.categoryAssignments[i] % grid.size;
+    var cat1 = Math.floor(this.grid.categoryAssignments[i] / this.grid.size);
+    var cat2 = this.grid.categoryAssignments[i] % this.grid.size;
 	this.gridCells[i].textContent = cat1+1;
     var classes = ["grid-cell", "cat2-" + cat2];
 	this.applyClasses(this.gridCells[i], classes);
   }
   // refresh category display for the last tile cell
-  var lastTile = grid.lastTileCategoryInfo;
+  var lastTile = this.grid.lastTileCategoryInfo;
   if (lastTile >= 0) {
-    cat1 = Math.floor(lastTile / grid.size);
-    cat2 = lastTile % grid.size;
+    cat1 = Math.floor(lastTile / this.grid.size);
+    cat2 = lastTile % this.grid.size;
     this.lastTileContainer.textContent = cat1+1;
     classes = ["last-tile", "cat2-" + cat2];
     this.applyClasses(this.lastTileContainer, classes);
@@ -31,11 +46,11 @@ HtmlActuator.prototype.refreshCategoryAssignments = function(grid) {
   }
 };
 
-HtmlActuator.prototype.refreshEnabledState = function(grid) {
+HtmlActuator.prototype.refreshEnabledState = function() {
   for (var i = 0; i < this.gridCells.length; i++) {
-    var x = Math.floor(i / grid.size);
-	var y = i % grid.size;
-	if (grid.isLegalMove(x,y)) {
+    var x = Math.floor(i / this.grid.size);
+	var y = i % this.grid.size;
+	if (this.grid.isLegalMove(x,y)) {
       this.gridCells[i].classList.add("enabled");
       this.gridCells[i].classList.remove("disabled");
 	}
@@ -46,7 +61,7 @@ HtmlActuator.prototype.refreshEnabledState = function(grid) {
   }
 };
 
-HtmlActuator.prototype.actuate = function(grid) {
-  this.refreshCategoryAssignments(grid);
-  this.refreshEnabledState(grid);
+HtmlActuator.prototype.actuate = function() {
+  this.refreshCategoryAssignments();
+  this.refreshEnabledState();
 };
