@@ -131,7 +131,7 @@ h1 {
 }
 
 .enabled {
-  background: #808080;
+  background: #b0b0b0;
   border-color: #ffffff #404040 #404040 #ffffff;
   cursor: pointer;
 }
