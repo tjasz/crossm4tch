@@ -17,9 +17,9 @@ GameBoard.prototype.setup = function() {
   this.cellStates = [];
   for (var i = 0; i < this.size; i++) {
     this.cellStates[i] = [];
-	for (var j = 0; j < this.size; j++) {
+	  for (var j = 0; j < this.size; j++) {
       this.cellStates[i].push(CellState.Unclaimed);
-	}
+	  }
   }
   shuffle(this.categoryAssignments);
 };
@@ -33,9 +33,9 @@ GameBoard.prototype.copy = function(other) {
   // deep copy cell states
   for (var i = 0; i < this.size; i++) {
     this.cellStates[i] = [];
-	for (var j = 0; j < this.size; j++) {
+	  for (var j = 0; j < this.size; j++) {
       other.cellStates[i][j] = this.cellStates[i][j];
-	}
+	  }
   }
   // deep copy category assignments
   for (i = 0; i < this.size*this.size; i++) {
@@ -52,16 +52,16 @@ GameBoard.prototype.equals = function(other) {
   }
   for (var i = 0; i < this.size; i++) {
     this.cellStates[i] = [];
-	for (var j = 0; j < this.size; j++) {
+	  for (var j = 0; j < this.size; j++) {
       if (other.cellStates[i][j] !== this.cellStates[i][j]) {
         return false;
+	    }
 	  }
-	}
   }
   for (i = 0; i < this.size*this.size; i++) {
     if (other.categoryAssignments[i] !== this.categoryAssignments[i]) {
       return false;
-	}
+	  }
   }
   return true;
 };
@@ -73,8 +73,8 @@ GameBoard.prototype.smaller_factor = function() {
   {
     if (candidate * Math.floor(this.size / candidate) == this.size) {
       this.smaller_factor_ = candidate;
-	  return candidate;
-	}
+	    return candidate;
+	  }
   }
   this.smaller_factor_ = 1;
   return 1;
@@ -147,21 +147,127 @@ GameBoard.prototype.unclaimedTiles = function() {
 	return this.size*this.size - this.claimed;
 };
 
-// TODO determine game states
+GameBoard.prototype.collections = function*() {
+  // yield the rows
+  for (var row = 0; row < this.size; row++)
+  {
+    var cell_states = [];
+	  for (var cell = 0; cell < this.size; cell++) {
+      cell_states.push(this.cellStates[row][cell]);
+	  }
+	  yield cell_states;
+  }
+  // yield the columns
+  for (var col = 0; col < this.size; col++)
+  {
+    var cell_states = [];
+	  for (var cell = 0; cell < this.size; cell++) {
+      cell_states.push(this.cellStates[cell][col]);
+	  }
+    yield cell_states;
+  }
+  // yield the positive diagonal
+  var posdiag_states = [];
+  for (var pdi = 0; pdi < this.size; pdi++) {
+    posdiag_states.push(this.cellStates[pdi][pdi]);
+  }
+  yield posdiag_states;
+  // yield the negative diagonal
+  var negdiag_states = [];
+  for (var ndi = 0; ndi < this.size; ndi++) {
+    negdiag_states.push(this.cellStates[ndi][this.size - ndi - 1]);
+  }
+  yield negdiag_states;
+  // yield the larger_factor x smaller_factor squares if size is not prime
+  if (this.smaller_factor() !== 1)
+  {
+    for (var row = 0; row <= this.size - this.smaller_factor(); row++)
+    {
+      for (var col = 0; col <= this.size - this.larger_factor(); col++)
+      {
+        cell_states = [];
+        for (var i = 0; i < this.smaller_factor(); i++) {
+          for (var j = 0; j < this.larger_factor(); j++) {
+            cell_states.push(this.cellStates[row+i][col+j]);
+          }
+        }
+        yield cell_states;
+      }
+    }
+  }
+  // yield the smaller_factor x larger_factor squares if size is not square
+  if (this.smaller_factor() !== this.larger_factor())
+  {
+    for (var row = 0; row <= this.size - this.larger_factor(); row++)
+    {
+      for (var col = 0; col <= this.size - this.smaller_factor(); col++)
+      {
+        cell_states = [];
+        for (var i = 0; i < larger_factor(); i++) {
+          for (var j = 0; j < this.smaller_factor(); j++) {
+            cell_states.push(this.cellStates[row+i][col+j]);
+          }
+        }
+        yield cell_states;
+      }
+    }
+  }
+}
+
+GameBoard.prototype.determineGameState = function() {
+  // check all possible collections for a win
+  var collections = this.collections();
+  var c = collections.next();
+  while (!c.done)
+  {
+    var collection = c.value;
+    seqlen = 1;
+    for (var i = 1; i < collection.length; i++) {
+      if (collection[i] !== collection[0] || collection[i] === CellState.Unclaimed) {
+        break;
+      }
+      seqlen++;
+    }
+    if (seqlen === this.size) {
+      if (collection[0] === CellState.PlayerOne) {
+        return GameState.PlayerOneWin;
+      }
+      else {
+        return GameState.PlayerTwoWin;
+      }
+    }
+    c = collections.next();
+  }
+  // otherwise, check for legal moves
+  if (this.legalMoves() === 0)
+  {
+    if (this.unclaimedTiles() > 0) {
+      if (this.isPlayerTwoTurn()) {
+        return GameState.PlayerOneWin;
+      }
+      else {
+        return GameState.PlayerTwoWin;
+      }
+    }
+    return GameState.Draw;
+  }
+  return GameState.InProgress;
+}
 
 GameBoard.prototype.play = function(i,j) {
   if (this.isLegalMove(i,j))
   {
     if (this.isPlayerOneTurn()) {
       this.cellStates[i][j] = CellState.PlayerOne;
-	}
-	else {
-	  this.cellStates[i][j] = CellState.PlayerTwo;
-	}
-	this.claimed++;
-	this.lastTileCategoryInfo = this.categoryAssignments[this.size*i + j];
-	// TODO determine game state
+	  }
+	  else {
+	    this.cellStates[i][j] = CellState.PlayerTwo;
+	  }
+	  this.claimed++;
+	  this.lastTileCategoryInfo = this.categoryAssignments[this.size*i + j];
+	  this.gameState = this.determineGameState();
   }
+  console.log(this);
 };
 
 
