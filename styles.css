@@ -64,6 +64,9 @@ h1 {
   border: 5px solid black;
   justify-content: center;
   align-items: center;
+  font-size: 80px;
+  font-weight: bold;
+  text-align: center;
 }
 .last-tile:after {
   content: "";
@@ -92,6 +95,9 @@ h1 {
   border: 5px solid black;
   justify-content: center;
   align-items: center;
+  font-size: 80px;
+  font-weight: bold;
+  text-align: center;
 }
 .grid-cell:last-child {
   margin-right: 0px;
