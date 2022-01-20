@@ -151,33 +151,17 @@ GameBoard.prototype.collections = function*() {
   // yield the rows
   for (var row = 0; row < this.size; row++)
   {
-    var cell_states = [];
-	  for (var cell = 0; cell < this.size; cell++) {
-      cell_states.push(this.cellStates[row][cell]);
-	  }
-	  yield cell_states;
+    yield new CellIterator(row, 0, row, this.size-1, CellCollectionType.Row);
   }
   // yield the columns
   for (var col = 0; col < this.size; col++)
   {
-    var cell_states = [];
-	  for (var cell = 0; cell < this.size; cell++) {
-      cell_states.push(this.cellStates[cell][col]);
-	  }
-    yield cell_states;
+    yield new CellIterator(0, col, this.size-1, col, CellCollectionType.Col);
   }
   // yield the positive diagonal
-  var posdiag_states = [];
-  for (var pdi = 0; pdi < this.size; pdi++) {
-    posdiag_states.push(this.cellStates[pdi][pdi]);
-  }
-  yield posdiag_states;
+  yield new CellIterator(0, 0, this.size-1, this.size-1, CellCollectionType.PosDiag);
   // yield the negative diagonal
-  var negdiag_states = [];
-  for (var ndi = 0; ndi < this.size; ndi++) {
-    negdiag_states.push(this.cellStates[ndi][this.size - ndi - 1]);
-  }
-  yield negdiag_states;
+  yield new CellIterator(0, this.size-1, this.size-1, 0, CellCollectionType.NegDiag);
   // yield the larger_factor x smaller_factor squares if size is not prime
   if (this.smaller_factor() !== 1)
   {
@@ -185,13 +169,7 @@ GameBoard.prototype.collections = function*() {
     {
       for (var col = 0; col <= this.size - this.larger_factor(); col++)
       {
-        cell_states = [];
-        for (var i = 0; i < this.smaller_factor(); i++) {
-          for (var j = 0; j < this.larger_factor(); j++) {
-            cell_states.push(this.cellStates[row+i][col+j]);
-          }
-        }
-        yield cell_states;
+        yield new CellIterator(row, col, row+this.smaller_factor()-1, col+this.larger_factor()-1, CellCollectionType.Rect);
       }
     }
   }
@@ -202,41 +180,40 @@ GameBoard.prototype.collections = function*() {
     {
       for (var col = 0; col <= this.size - this.smaller_factor(); col++)
       {
-        cell_states = [];
-        for (var i = 0; i < larger_factor(); i++) {
-          for (var j = 0; j < this.smaller_factor(); j++) {
-            cell_states.push(this.cellStates[row+i][col+j]);
-          }
-        }
-        yield cell_states;
+        yield new CellIterator(row, col, row+this.larger_factor()-1, col+this.smaller_factor()-1, CellCollectionType.Rect);
       }
     }
   }
-}
+};
 
 GameBoard.prototype.determineGameState = function() {
   // check all possible collections for a win
   var collections = this.collections();
-  var c = collections.next();
-  while (!c.done)
+  var potential_collection = collections.next();
+  while (!potential_collection.done)
   {
-    var collection = c.value;
-    seqlen = 1;
-    for (var i = 1; i < collection.length; i++) {
-      if (collection[i] !== collection[0] || collection[i] === CellState.Unclaimed) {
+    var collection = potential_collection.value.cells();
+    var seqlen = 0;
+    var state = null;
+    var potential_cell = collection.next();
+    while (!potential_cell.done) {
+      var cell = potential_cell.value;
+      if ((state && this.cellStates[cell.x][cell.y] !== state) || this.cellStates[cell.x][cell.y] === CellState.Unclaimed) {
         break;
       }
+      state = this.cellStates[cell.x][cell.y];
       seqlen++;
+      potential_cell = collection.next();
     }
     if (seqlen === this.size) {
-      if (collection[0] === CellState.PlayerOne) {
+      if (state === CellState.PlayerOne) {
         return GameState.PlayerOneWin;
       }
       else {
         return GameState.PlayerTwoWin;
       }
     }
-    c = collections.next();
+    potential_collection = collections.next();
   }
   // otherwise, check for legal moves
   if (this.legalMoves() === 0)
@@ -252,7 +229,7 @@ GameBoard.prototype.determineGameState = function() {
     return GameState.Draw;
   }
   return GameState.InProgress;
-}
+};
 
 GameBoard.prototype.play = function(i,j) {
   if (this.isLegalMove(i,j))

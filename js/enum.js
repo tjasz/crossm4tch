@@ -11,3 +11,5 @@ function createEnum(values) {
 const CellState = createEnum(['Unclaimed', 'PlayerOne', 'PlayerTwo']);
 
 const GameState = createEnum(['InProgress', 'PlayerOneWin', 'PlayerTwoWin', 'Draw']);
+
+const CellCollectionType = createEnum(['Row', 'Col', 'PosDiag', 'NegDiag', 'Rect']);
