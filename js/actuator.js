@@ -19,9 +19,11 @@ function tileClick(evt) {
   evt.target.act.grid.play(evt.target.x, evt.target.y);
   evt.target.act.actuate();
   if (evt.target.act.grid.isPlayerTwoTurn() && !evt.target.act.grid.gameOver()) {
-    var p2play = getMove(evt.target.act.grid, 8, false);
-    evt.target.act.grid.play(p2play.x, p2play.y);
-    evt.target.act.actuate();
+    setTimeout(function() {
+      var p2play = getMove(evt.target.act.grid, 15, false);
+      evt.target.act.grid.play(p2play.x, p2play.y);
+      evt.target.act.actuate();
+    },20);
   }
 }
 
@@ -62,7 +64,7 @@ HtmlActuator.prototype.refreshEnabledState = function() {
   for (var i = 0; i < this.gridCells.length; i++) {
     var x = Math.floor(i / this.grid.size);
 	var y = i % this.grid.size;
-	if (this.grid.isLegalMove(x,y)) {
+	if (this.grid.isLegalMove(x,y) && this.grid.isPlayerOneTurn()) {
       this.gridCells[i].classList.add("enabled");
       this.gridCells[i].classList.remove("disabled");
 	}
