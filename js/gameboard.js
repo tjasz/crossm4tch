@@ -32,7 +32,7 @@ GameBoard.prototype.copy = function(other) {
   other.lastTileCategoryInfo = this.lastTileCategoryInfo;
   // deep copy cell states
   for (var i = 0; i < this.size; i++) {
-    this.cellStates[i] = [];
+    other.cellStates[i] = [];
 	  for (var j = 0; j < this.size; j++) {
       other.cellStates[i][j] = this.cellStates[i][j];
 	  }
@@ -83,6 +83,22 @@ GameBoard.prototype.smaller_factor = function() {
 GameBoard.prototype.larger_factor = function() {
   return Math.floor(this.size / this.smaller_factor());
 };
+
+// the number of possible winning clusters on this board size
+GameBoard.prototype.numClusters = function() {
+  if (this.size === 1) return 1;
+
+  var result = 2*this.size + 2; // rows, columnns, diagonals
+  if (this.smaller_factor() !== 1) // do not double count columns or rows
+  {
+    // larger_factor by saller_factor clusters
+    result += (this.size - this.smaller_factor() + 1) * (this.size - this.larger_factor() + 1);
+    if (this.smaller_factor() != this.larger_factor()) {
+      result += (this.size - this.smaller_factor() + 1) * (this.size - this.larger_factor() + 1);
+    }
+  }
+  return result;
+}
 
 GameBoard.prototype.isEdge = function(i, j) {
   return i === 0 || i === this.size-1 || j === 0 || j === this.size-1;
@@ -244,7 +260,7 @@ GameBoard.prototype.play = function(i,j) {
 	  this.lastTileCategoryInfo = this.categoryAssignments[this.size*i + j];
 	  this.gameState = this.determineGameState();
   }
-  console.log(this);
+  //console.log(this);
 };
 
 

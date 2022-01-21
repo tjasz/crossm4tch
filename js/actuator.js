@@ -18,6 +18,11 @@ function HtmlActuator(grid) {
 function tileClick(evt) {
   evt.target.act.grid.play(evt.target.x, evt.target.y);
   evt.target.act.actuate();
+  if (evt.target.act.grid.isPlayerTwoTurn() && !evt.target.act.grid.gameOver()) {
+    var p2play = getMove(evt.target.act.grid, 8, false);
+    evt.target.act.grid.play(p2play.x, p2play.y);
+    evt.target.act.actuate();
+  }
 }
 
 function restart(evt) {
