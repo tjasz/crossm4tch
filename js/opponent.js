@@ -101,8 +101,8 @@ function getBoardValue(board) {
       }
       if (board.cellStates[cell.x][cell.y] !== CellState.Unclaimed) {
         state = board.cellStates[cell.x][cell.y];
+        seqlen++;
       }
-      seqlen++;
       potential_cell = collection.next();
     }
     if (state && state === CellState.PlayerOne) {
