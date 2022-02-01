@@ -75,15 +75,7 @@ h1 {
 }
 
 .grid {
-  width: 470px;
   margin: 0 auto;
-  display: block;
-}
-
-.grid-row:after {
-  content: "";
-  display: block;
-  clear: both;
 }
 
 .grid-cell {
