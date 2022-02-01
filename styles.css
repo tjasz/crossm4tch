@@ -11,13 +11,13 @@ html, body {
 }
 
 body {
-  margin: 40px;
+  margin: 10px;
 }
 
 .container {
   max-width: 600px;
   width: 100%;
-  min-width: 400px;
+  min-width: 380px;
   margin: 0 auto;
   padding: 0;
 }
