@@ -181,10 +181,16 @@ h1 {
   background: #f0f0f0;
   border-color: #a0a0a0 #ffffff #ffffff #a0a0a0;
 }
+.p1claimed.last-tile {
+  box-shadow: 0 0 10px 5px #000040;
+}
 
 .p2claimed {
   background: #101010;
   border-color: #000000 #606060 #606060 #000000;
+}
+.p2claimed.last-tile {
+  box-shadow: 0 0 10px 5px #ffffc0;
 }
 
 #restartButton {
