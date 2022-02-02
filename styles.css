@@ -165,6 +165,12 @@ h1 {
   border-color: #ffffff #404040 #404040 #ffffff;
   cursor: pointer;
 }
+.enabled:hover {
+  border-color: #606060 #c0c0c0 #c0c0c0 #606060;
+}
+.enabled:active {
+  border-color: #404040 #ffffff #ffffff #404040;
+}
 .disabled {
   background: #b0b0b0;
   border-color: #b0b0b0;
@@ -172,7 +178,7 @@ h1 {
 }
 
 .p1claimed {
-  background: #e0e0e0;;
+  background: #e0e0e0;
   border-color: #404040 #ffffff #ffffff #404040;
 }
 
@@ -193,6 +199,14 @@ h1 {
   font-weight: bold;
   padding: 5px;
   cursor: pointer;
+}
+#restartButton:hover {
+  border: none; /* removes default shadow from button border */
+  border: 5px solid black;
+  border-color: #606060 #c0c0c0 #c0c0c0 #606060;
+}
+#restartButton:active {
+  border-color: #404040 #ffffff #ffffff #404040;
 }
 @media screen and (max-width: 600px)
 {
