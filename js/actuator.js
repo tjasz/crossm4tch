@@ -51,7 +51,8 @@ HtmlActuator.prototype.refreshCategoryAssignments = function() {
     cat1 = Math.floor(lastTile / this.grid.size);
     cat2 = lastTile % this.grid.size;
     this.lastTileContainer.textContent = cat1+1;
-    classes = ["last-tile", "cat2-" + cat2];
+    lastTileState = this.grid.isPlayerOneTurn() ? "p2claimed" : "p1claimed";
+    classes = ["last-tile", "cat2-" + cat2, lastTileState];
     this.applyClasses(this.lastTileContainer, classes);
   }
   else {
