@@ -226,4 +226,10 @@ h1 {
     margin: 13px auto;
     border-width: 3px;
   }
+  #restartButton:hover {
+    border-width: 3px;
+  }
+  #restartButton:active {
+    border-width: 3px;
+  }
 }
