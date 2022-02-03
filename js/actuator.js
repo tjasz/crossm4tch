@@ -43,6 +43,11 @@ HtmlActuator.prototype.refreshCategoryAssignments = function() {
     var cat2 = this.grid.categoryAssignments[i] % this.grid.size;
 	this.gridCells[i].textContent = cat1+1;
     var classes = ["grid-cell", "cat2-" + cat2];
+    // if this was the last tile, include the last-tile class as well
+    if (this.grid.lastTileCategoryInfo >= 0 && this.grid.lastTileCategoryInfo === this.grid.categoryAssignments[i])
+    {
+      classes.push("last-tile");
+    }
 	this.applyClasses(this.gridCells[i], classes);
   }
   // refresh category display for the last tile cell
@@ -51,7 +56,8 @@ HtmlActuator.prototype.refreshCategoryAssignments = function() {
     cat1 = Math.floor(lastTile / this.grid.size);
     cat2 = lastTile % this.grid.size;
     this.lastTileContainer.textContent = cat1+1;
-    classes = ["last-tile", "cat2-" + cat2];
+    lastTileState = this.grid.isPlayerOneTurn() ? "p2claimed" : "p1claimed";
+    classes = ["last-tile", "cat2-" + cat2, lastTileState];
     this.applyClasses(this.lastTileContainer, classes);
   }
   else {

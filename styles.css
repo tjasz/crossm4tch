@@ -5,7 +5,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #e0e0e0;
+  background: #909090;
   color: #000000;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
 }
@@ -161,38 +161,58 @@ h1 {
 }
 
 .enabled {
-  background: #b0b0b0;
-  border-color: #ffffff #404040 #404040 #ffffff;
+  background: #a0a0a0;
+  border-color: #c0c0c0 #404040 #404040 #c0c0c0;
   cursor: pointer;
 }
+.enabled:hover {
+  border-color: #606060 #b0b0b0 #b0b0b0 #606060;
+}
+.enabled:active {
+  border-color: #404040 #c0c0c0 #c0c0c0 #404040;
+}
 .disabled {
-  background: #e0e0e0;
-  border-color: #e0e0e0;
+  background: #909090;
+  border-color: #909090;
   cursor: not-allowed;
 }
 
 .p1claimed {
-  background: white;
-  border-color: white;
+  background: #f0f0f0;
+  border-color: #a0a0a0 #ffffff #ffffff #a0a0a0;
+}
+.p1claimed.last-tile {
+  box-shadow: 0 0 10px 5px #000040;
 }
 
 .p2claimed {
-  background: black;
-  border-color: black;
+  background: #101010;
+  border-color: #000000 #606060 #606060 #000000;
+}
+.p2claimed.last-tile {
+  box-shadow: 0 0 10px 5px #ffffc0;
 }
 
 #restartButton {
   display: block;
   width: 50%;
   margin: 20px auto;
-  background-color: #808080;
+  background-color: #a0a0a0;
   color: white;
-  border-color: #ffffff #404040 #404040 #ffffff;
+  border-color: #c0c0c0 #404040 #404040 #c0c0c0;
   border-width: 5px;
   font-size: 18px;
   font-weight: bold;
   padding: 5px;
   cursor: pointer;
+}
+#restartButton:hover {
+  border: none; /* removes default shadow from button border */
+  border: 5px solid black;
+  border-color: #606060 #b0b0b0 #b0b0b0 #606060;
+}
+#restartButton:active {
+  border-color: #404040 #c0c0c0 #c0c0c0 #404040;
 }
 @media screen and (max-width: 600px)
 {
