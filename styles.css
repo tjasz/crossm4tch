@@ -173,8 +173,8 @@ h1 {
   border-color: #404040 #c0c0c0 #c0c0c0 #404040;
 }
 .disabled {
-  background: #909090;
-  border-color: #909090;
+  background: transparent;
+  border-color: transparent;
   cursor: not-allowed;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
@@ -186,6 +186,7 @@ h1 {
 }
 .p1claimed.last-tile {
   box-shadow: 0 0 10px 5px #000040;
+  z-index: 1;
 }
 
 .p2claimed {
@@ -195,6 +196,7 @@ h1 {
 }
 .p2claimed.last-tile {
   box-shadow: 0 0 10px 5px #ffffc0;
+  z-index: 1;
 }
 
 #restartButton {
