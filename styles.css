@@ -101,6 +101,10 @@ h1 {
   clear: both;
 }
 
+#game {
+  position: relative;
+}
+
 .grid {
   margin: 0 auto;
 }
@@ -131,20 +135,6 @@ h1 {
 }
 .grid-cell:last-child {
   margin-right: 0px;
-}
-
-.game-state-message {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.game-state-info {
-  width: 100%;
-}
-
-.game-state-message {
-  font-size: 24px;
-  font-weight: bold;
 }
 
 .cat2-0 {
@@ -199,9 +189,32 @@ h1 {
   z-index: 1;
 }
 
+#gameStateMessage {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  width: 300px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid black;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+}
+@media screen and (max-width: 600px)
+{
+  #gameStateMessage {
+    font-size: 25px;
+    width: 180px;
+  }
+}
+
 #restartButton {
   display: block;
-  width: 50%;
+  width: 300px;
   margin: 20px auto;
   background-color: #a0a0a0;
   color: white;
@@ -224,6 +237,7 @@ h1 {
 {
   #restartButton {
     margin: 13px auto;
+    width: 180px;
     border-width: 3px;
   }
   #restartButton:hover {
