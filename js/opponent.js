@@ -8,7 +8,7 @@ function getMove(board, depth, is_player_one)
       if (board.isLegalMove(Math.floor(i / board.size), i % board.size)) {
         var copy = board.copy();
         copy.play(Math.floor(i / board.size), i % board.size);
-        var value = alphabeta(copy, depth, Number.NEGATIVE_INFINITY, optimal_value, true);
+        var value = alphabeta(copy, depth-1, Number.NEGATIVE_INFINITY, optimal_value, true);
         if (value < optimal_value) {
           best_move = i;
           optimal_value = value;
@@ -22,7 +22,7 @@ function getMove(board, depth, is_player_one)
       if (board.isLegalMove(Math.floor(i / board.size), i % board.size)) {
         var copy = board.copy();
         copy.play(Math.floor(i / board.size), i % board.size);
-        var value = alphabeta(copy, depth, optimal_value, Number.POSITIVE_INFINITY, false);
+        var value = alphabeta(copy, depth-1, optimal_value, Number.POSITIVE_INFINITY, false);
         if (value > optimal_value) {
           best_move = i;
           optimal_value = value;

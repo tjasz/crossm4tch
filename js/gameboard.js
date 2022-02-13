@@ -71,7 +71,7 @@ GameBoard.prototype.smaller_factor = function() {
   var upper_bound = Math.floor(Math.sqrt(this.size));
   for (var candidate = upper_bound; candidate > 1; candidate--)
   {
-    if (candidate * Math.floor(this.size / candidate) == this.size) {
+    if (candidate * Math.floor(this.size / candidate) === this.size) {
       this.smaller_factor_ = candidate;
 	    return candidate;
 	  }
@@ -190,7 +190,7 @@ GameBoard.prototype.collections = function*() {
     }
   }
   // yield the smaller_factor x larger_factor squares if size is not square
-  if (this.smaller_factor() !== this.larger_factor())
+  if (this.smaller_factor() !== 1 && this.smaller_factor() !== this.larger_factor())
   {
     for (var row = 0; row <= this.size - this.larger_factor(); row++)
     {
@@ -221,8 +221,8 @@ GameBoard.prototype.determineGameState = function() {
       seqlen++;
       potential_cell = collection.next();
     }
-    if (seqlen === this.size) {
-      if (state === CellState.PlayerOne) {
+    if (seqlen == this.size) {
+      if (state == CellState.PlayerOne) {
         return GameState.PlayerOneWin;
       }
       else {

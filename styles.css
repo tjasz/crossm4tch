@@ -15,6 +15,7 @@ body {
 }
 
 .container {
+  position: relative;
   max-width: 600px;
   width: 100%;
   min-width: 380px;
@@ -110,27 +111,21 @@ h1 {
 }
 
 .grid-cell {
-  width: 100px;
-  height: 100px;
   margin-bottom: 10px;
   margin-right: 10px;
   float: left;
   border: 5px solid black;
   justify-content: center;
   align-items: center;
-  font-size: 80px;
   font-weight: bold;
   text-align: center;
 }
 @media screen and (max-width: 600px)
 {
   .grid-cell {
-    width: 60px;
-    height: 60px;
     margin-bottom: 7px;
     margin-right: 7px;
     border-width: 3px;
-    font-size: 50px;
   }
 }
 .grid-cell:last-child {
@@ -138,16 +133,40 @@ h1 {
 }
 
 .cat2-0 {
-  color: #ff4040;
-}
-.cat2-1 {
-  color: #d0d000;
+  color: #ff4040; /* red */
 }
 .cat2-2 {
-  color: #50d050;
+  color: #40c040; /* green */
 }
 .cat2-3 {
-  color: #4040ff;
+  color: #4040ff; /* blue */
+}
+.cat2-1 {
+  color: #d0d000; /* yellow */
+}
+.cat2-4 {
+  color: #d000d0; /* magenta */
+}
+.cat2-5 {
+  color: #00d0d0; /* cyan */
+}
+.cat2-6 {
+  color: #ff8000; /* orange */
+}
+.cat2-7 {
+  color: #0080ff; /* sand blue */
+}
+.cat2-8 {
+  color: #8000ff; /* purple */
+}
+.cat2-9 {
+  color: #ff0080; /* hot pink */
+}
+.cat2-10 {
+  color: #a0b040; /* olive */
+}
+.cat2-11 {
+  color: #00f090; /* marine */
 }
 
 .enabled {
@@ -187,6 +206,37 @@ h1 {
 .p2claimed.last-tile {
   box-shadow: 0 0 10px 5px #ffffc0;
   z-index: 1;
+}
+
+#settings {
+  display: none;
+  position: relative;
+}
+#settings img {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+#links {
+  position: absolute;
+  top: 20px;
+  right: 0px;
+}
+@media screen and (max-width: 600px)
+{
+  #links {
+    top: 0px;
+  }
+}
+#links img {
+  cursor: pointer;
 }
 
 #gameStateMessage {
@@ -246,4 +296,8 @@ h1 {
   #restartButton:active {
     border-width: 3px;
   }
+}
+
+#winning_collections {
+  font-weight: bold;
 }
