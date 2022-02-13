@@ -10,6 +10,8 @@ function HtmlActuator(grid) {
     this.gridCells[i].y = y;
     this.gridCells[i].addEventListener('click', tileClick);
   }
+  this.gameStateInfo = document.getElementById("gameStateInfo");
+  this.gameStateMessage = document.getElementById("gameStateMessage");
   this.restartButton = document.getElementById("restartButton");
   this.restartButton.act = this;
   this.restartButton.addEventListener('click', restart);
@@ -94,8 +96,32 @@ HtmlActuator.prototype.refreshClaims = function() {
   }
 };
 
+HtmlActuator.prototype.updateGameStateInfo = function() {
+  if (this.grid.gameOver())
+  {
+    this.gameStateMessage.style.display = "inline";
+    if (this.grid.gameState === GameState.PlayerOneWin)
+    {
+      this.gameStateMessage.textContent = "Player one wins!";
+    }
+    else if (this.grid.gameState === GameState.PlayerTwoWin)
+    {
+      this.gameStateMessage.textContent = "Player two wins!";
+    }
+    else
+    {
+      this.gameStateMessage.textContent = "Draw game...";
+    }
+  }
+  else
+  {
+    this.gameStateMessage.style.display = "none";
+  }
+};
+
 HtmlActuator.prototype.actuate = function() {
   this.refreshCategoryAssignments();
   this.refreshEnabledState();
   this.refreshClaims();
+  this.updateGameStateInfo();
 };
