@@ -18,10 +18,55 @@
   <div class="container">
     <div class="header">
       <h1 class="title">CROSSM4TCH</h1>
+      <div id="links">
+        <img src="img/gear32x32.png" alt="Settings" title="Settings" id="settings_icon" width="32" height="32">
+      </div>
       <p class="summary">Match tiles by color or number in order to claim a winning sequence.</p>
     </div>
     <hr>
-
+    <div id="settings">
+      <h2>Settings</h2>
+      <img src="img/close32x32.png" alt="Close" title="Close" id="close_icon" width="32" height="32">
+      <form>
+      <label>Board size:
+        <select name="boardsize" id="boardsize">
+          <option value="3">3x3</option>
+          <option value="4">4x4</option>
+          <option value="5">5x5</option>
+          <option value="6">6x6</option>
+          <option value="7">7x7</option>
+          <option value="8">8x8</option>
+          <option value="9">9x9</option>
+          <option value="10">10x10</option>
+          <option value="11">11x11</option>
+          <option value="12">12x12</option>
+        </select>
+      </label>
+      <label>AI Opponent
+        <input type="checkbox" name="ai" id="ai">
+      </label>
+      <label id="difficultyLabel">Difficulty:
+        <select name="difficulty" id="difficulty">
+          <option value="cakewalk">Cakewalk</option>
+          <option value="easy">Easy</option>
+          <option value="moderate">Moderate</option>
+          <option value="difficult">Difficult</option>
+          <option value="diabolical">Diabolical</option>
+        </select>
+      </label>
+      <label id="firstmoveLabel">Fist Move:
+        <select name="firstmove" id="firstmove">
+          <option value="human">Human</option>
+          <!-- <option value="computer">Computer</option>
+          <option value="alternating">Alternating</option>
+          <option value="random">Random</option>
+          <option value="winner">Winner</option>
+          <option value="loser">Loser</option> -->
+        </select>
+      </label>
+      </form>
+      <hr>
+    </div>
     <div class="last-tile-info">
       <div class="last-tile-tag">Last Tile:</div>
       <div class="last-tile"></div>
@@ -65,7 +110,7 @@
       <p><strong><em>To start:</em></strong> tap any tile on the outer ring of the game board to claim it.</p>
       <p>Players alternate turns claiming tiles.</p>
         <p>Only tiles that <strong>match either the color or the numeral</strong> of the previous tile can be claimed.</p>
-      <p><strong><em>To win:</em></strong> claim either a full <strong>row</strong>, <strong>column</strong>, <strong>diagonal</strong>, or <strong>2x2 square</strong> of tiles.</p>
+      <p><strong><em>To win:</em></strong> claim either a full <span id="winning_collections">row, column, diagonal, or 2x2 square</span> of tiles.</p>
       <p>It is also possible to win by claiming a tile which has <strong>no available matching tiles</strong>.</p>
     </div>
     <hr>
@@ -76,7 +121,9 @@
     <div class="sharing"></div>
   </div>
   <script src="js/util.js"></script>
+  <script src="js/cookies.js"></script>
   <script src="js/enum.js"></script>
+  <script src="js/settings.js"></script>
   <script src="js/cell_iterator.js"></script>
   <script src="js/gameboard.js"></script>
   <script src="js/opponent.js"></script>
