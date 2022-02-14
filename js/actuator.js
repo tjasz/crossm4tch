@@ -78,7 +78,7 @@ HtmlActuator.prototype.searchDepth = function () {
   // branching factor than depth 16 on a 5x5. Let's approximate the average branching factor as
   // .5 * (2(n-1) + min(2(n-1), (n^2-d)/(n/2)))
   var avgBranch = function(depth, boardsize) {
-    return 0.5 * (2*(boardsize-1) + Math.min(2*(boardsize-1),(boardsize*boardsize-depth)/(boardsize/2)));
+    return 0.5 * (2*(boardsize-1) + Math.min(2*(boardsize-1),(Math.max(0, boardsize*boardsize-depth))/(boardsize/2)));
   };
   var expr = function(baselineDepth, boardsize, branching) {
     return (2*Math.log(4) - 2*Math.log(boardsize) + baselineDepth * Math.log(avgBranch(baselineDepth,4))) / Math.log(branching);
