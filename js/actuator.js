@@ -81,7 +81,7 @@ HtmlActuator.prototype.searchDepth = function () {
     return 0.5 * (2*(boardsize-1) + Math.min(2*(boardsize-1),(Math.max(0, boardsize*boardsize-depth))/(boardsize/2)));
   };
   var expr = function(baselineDepth, boardsize, branching) {
-    return (2*Math.log(4) - 2*Math.log(boardsize) + baselineDepth * Math.log(avgBranch(baselineDepth,4))) / Math.log(branching);
+    return Math.max(1, (2*Math.log(4) - 2*Math.log(boardsize) + baselineDepth * Math.log(avgBranch(baselineDepth,4))) / Math.log(branching));
   }
   var findDepth = function(baselineDepth, boardsize) {
     var depth = NaN;
