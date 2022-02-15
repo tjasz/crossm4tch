@@ -4,9 +4,9 @@ function HtmlActuator(settings) {
   this.settingsIcon.addEventListener('click', openSettings);
   this.closeIcon = document.getElementById("close_icon");
   this.closeIcon.addEventListener('click', closeSettings);
+  this.initGrid();
   this.formInit();
 
-  this.initGrid();
   this.lastTileContainer = document.querySelector(".last-tile");
   this.gameStateInfo = document.getElementById("gameStateInfo");
   this.gameStateMessage = document.getElementById("gameStateMessage");
@@ -140,6 +140,15 @@ HtmlActuator.prototype.formInit = function () {
   
   // set settings form values from settings object
   settingsForm.boardsize.value = this.settings.boardsize.toString();
+  // update game instructions on winning collections
+  var collectionsSpan = document.getElementById("winning_collections");
+  if (this.grid.smaller_factor() == 1) {
+    collectionsSpan.textContent = "row, column, or diagonal";
+  } else if (this.grid.smaller_factor() == this.grid.larger_factor()) {
+    collectionsSpan.textContent = "row, column, diagonal, or " + this.grid.smaller_factor() + "x" + this.grid.smaller_factor() + " square";
+  } else {
+    collectionsSpan.textContent = "row, column, diagonal, or " + this.grid.smaller_factor() + "x" + this.grid.larger_factor() + " rectangle";
+  }
   settingsForm.ai.checked = this.settings.ai;
   // hide AI settings if unchecked
   if (settingsForm.ai.checked) {
