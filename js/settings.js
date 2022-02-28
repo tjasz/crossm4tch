@@ -7,7 +7,7 @@ function Settings() {
   if (3 <= boardsize && boardsize <= 12) {
     this.boardsize = boardsize;
   } else {
-    this.boardsize = 3;
+    this.boardsize = 4;
   }
   
   var ai = getCookie("ai");
